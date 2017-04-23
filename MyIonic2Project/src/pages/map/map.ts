@@ -37,8 +37,9 @@ export class MapPage {
 
 loadMap(selectedItem: RouteDetail){
  
-        let location = new GoogleMapsLatLng(43.313154,-5.6983989);
- 
+        //let location = new GoogleMapsLatLng(43.313154,-5.6983989);
+        let location = new GoogleMapsLatLng(this.selectedItem.latitude,this.selectedItem.longitude);
+
         this.map = new GoogleMap('map', {
           'backgroundColor': 'white',
           'controls': {
