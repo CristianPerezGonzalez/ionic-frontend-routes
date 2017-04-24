@@ -12,7 +12,7 @@ import {BaseRequestOptions, Http} from "@angular/http";
 import { HttpModule }    from '@angular/http';
 
 // Imports for loading & configuring the in-memory web api
-import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
+//import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
 import { InMemoryDataService }  from './mock-backend/InMemoryDataService';
 
 import { RoutesService }          from './../providers/routes-service';

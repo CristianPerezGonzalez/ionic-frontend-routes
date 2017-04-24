@@ -11,7 +11,9 @@
   <!-- <img src="assets/img/advance-card-alaska.png" alt="advance-card-alaska"> -->
   <h3 text-center *ngIf="selectedItem">
 
-     
+     description:
+      {{selectedItem.description}}
+      <br>
 	  distance:
 	    {{selectedItem.distance}}
       <br>
@@ -26,6 +28,9 @@
       <br>
 	  longitude:
       {{selectedItem.longitude}}
+      <br>
+      description:
+      {{selectedItem.description}}
       <br>
 <button ion-button full (click)="toMap(selectedItem)">Mapa</button>
    <!-- <ion-icon [name]="selectedItem.icon"></ion-icon> -->

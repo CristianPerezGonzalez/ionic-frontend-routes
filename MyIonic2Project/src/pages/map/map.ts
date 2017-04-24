@@ -16,10 +16,10 @@ import { RouteDetail } from '../../app/route-detail';
 export class MapPage {
  map: GoogleMap;
  selectedItem: RouteDetail;
-
+ coordinates:string;
+ positionsString:string[];
  positions: Array<GoogleMapsLatLng>= [
-        new GoogleMapsLatLng(43.3131482, -5.6983319),
-        new GoogleMapsLatLng(43.3123018, -5.6977171),
+        
     ];
 
  markers: Array<GoogleMapsMarker> = Array();
@@ -29,6 +29,12 @@ export class MapPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public platform: Platform) {
  this.selectedItem = navParams.get('selectedItem');
+ this.coordinates = this.selectedItem.coordinates;
+ this.positionsString = this.coordinates.split(",0 ");
+ console.log(this.positionsString);
+ this.positionsString.forEach(e => this.positions.push(new GoogleMapsLatLng(Number.parseFloat(e.split(",")[1]),Number.parseFloat(e.split(",")[0]))));
+ this.positions = this.positions.slice(0,this.positions.length-2);
+ console.log(this.positions);
  console.log(this.selectedItem);
      platform.ready().then(() => {
             this.loadMap(this.selectedItem);
@@ -38,8 +44,8 @@ export class MapPage {
 loadMap(selectedItem: RouteDetail){
  
         //let location = new GoogleMapsLatLng(43.313154,-5.6983989);
-        let location = new GoogleMapsLatLng(this.selectedItem.latitude,this.selectedItem.longitude);
-
+       // let location = new GoogleMapsLatLng(this.selectedItem.latitude,this.selectedItem.longitude);
+    let location = this.positions[0];
         this.map = new GoogleMap('map', {
           'backgroundColor': 'white',
           'controls': {
@@ -57,7 +63,7 @@ loadMap(selectedItem: RouteDetail){
           'camera': {
             'latLng': location,
             'tilt': 30,
-            'zoom': 15,
+            'zoom': 12,
             'bearing': 50
           }
         });
@@ -75,8 +81,9 @@ loadMap(selectedItem: RouteDetail){
 }
 
 setMarkers(){
-          let location = new GoogleMapsLatLng(43.313154,-5.6983989);
-
+         // let location = new GoogleMapsLatLng(43.313154,-5.6983989);
+        //let location = new GoogleMapsLatLng(this.selectedItem.latitude,this.selectedItem.longitude);
+        let location = this.positions[0];
   //primero validamos que tengamos los datos de la localización
   if(location){
 
@@ -84,6 +91,7 @@ setMarkers(){
     
       
     //Luego lo agregamos al mapa, y una vez agregado llamamos la función showInfoWindow() para mostrar el título señalado anteriormente.
+   /*
     this.positions.forEach((position) => {
             let markerOptions: GoogleMapsMarkerOptions = {
                   position: position,
@@ -95,13 +103,32 @@ setMarkers(){
             });
 
     });
+    */
+
+    let markerInicial: GoogleMapsMarkerOptions = {
+                  position: this.positions[0],
+                  title: 'Inicio'
+            };
+            this.map.addMarker(markerInicial)
+                  .then((marker: GoogleMapsMarker) => {
+                    marker.showInfoWindow();
+            });
+
+            let markerFinal: GoogleMapsMarkerOptions = {
+                  position: this.positions[this.positions.length-1],
+                  title: 'Meta'
+            };
+            this.map.addMarker(markerFinal)
+                  .then((marker: GoogleMapsMarker) => {
+                    marker.showInfoWindow();
+            });
 
 
   this.positions.forEach((position, index, positions) => {
       let polylineOptions:  GoogleMapsPolylineOptions = {
          points: [positions[index], positions[index-1]],    
-                    color: '#00A8E8',                                   
-                    width: 1 
+                    color: '#E60026',                                   
+                    width: 2 
        };
        
             this.map.addPolyline(polylineOptions).then((poly_line) => {
@@ -123,7 +150,8 @@ setMarkers(){
 
 
 setMarker(){
-          let location = new GoogleMapsLatLng(43.313154,-5.6983989);
+       //   let location = new GoogleMapsLatLng(43.313154,-5.6983989);
+        let location = new GoogleMapsLatLng(this.selectedItem.latitude,this.selectedItem.longitude);
 
   //primero validamos que tengamos los datos de la localización
   if(location){

@@ -9,4 +9,6 @@ export class RouteDetail {
 	 duration:number;
 	 latitude:number;
 	 longitude:number;
+	 coordinates:string;
+	 description:string;
 }
