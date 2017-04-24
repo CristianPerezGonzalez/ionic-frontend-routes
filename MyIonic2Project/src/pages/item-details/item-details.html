@@ -3,7 +3,7 @@
     <button menuToggle *ngIf="!selectedItem">
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Item Details</ion-title>
+    <ion-title>Detalles de la ruta</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -22,15 +22,6 @@
       <br>
 	  duration:
       {{selectedItem.duration}}
-      <br>
-	  latitude:
-      {{selectedItem.latitude}}
-      <br>
-	  longitude:
-      {{selectedItem.longitude}}
-      <br>
-      description:
-      {{selectedItem.description}}
       <br>
 <button ion-button full (click)="toMap(selectedItem)">Mapa</button>
    <!-- <ion-icon [name]="selectedItem.icon"></ion-icon> -->

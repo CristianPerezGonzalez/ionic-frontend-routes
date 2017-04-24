@@ -3,11 +3,25 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>My First List</ion-title>
+    <ion-title>Listado de rutas</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
+<ion-list>
+  <ion-item>
+    <ion-label>Valoracion</ion-label>
+    <ion-select [(ngModel)]="rating" (ionChange)="stpSelect()">
+      <ion-option value="1">1</ion-option>
+      <ion-option value="2">2</ion-option>
+      <ion-option value="3">3</ion-option>
+      <ion-option  value="4">4</ion-option>
+      <ion-option value="5">5</ion-option>
+    </ion-select>
+  </ion-item>
+</ion-list>
+
+
   <ion-list>
     <button ion-item *ngFor="let ruta of routes" (pan)="itemPanned($event,ruta)" (click)="itemTapped($event, ruta)">
      

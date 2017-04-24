@@ -14,6 +14,7 @@ import { LoadingController } from 'ionic-angular';
 
 })
 export class ListPage {
+  rating:number = 1;
   selectedItem: any;
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
@@ -35,11 +36,11 @@ export class ListPage {
 
 ngOnInit(): void {
     this.getRutas();
-    console.log(this.routes);
+   // console.log(this.routes);
   }
 
   ngOnDestroy():void{
-      console.log(this.routes);
+     // console.log(this.routes);
   }
 
 getRutas(): void {
@@ -67,5 +68,9 @@ this.loadingCtrl.create({
 
   itemPanned(event,ruta: Route){
     ruta.name="Eliminado";
+  }
+
+  stpSelect() {
+    console.log('selected: ' + this.rating);
   }
 }

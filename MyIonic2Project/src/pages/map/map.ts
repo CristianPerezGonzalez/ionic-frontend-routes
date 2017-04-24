@@ -31,11 +31,11 @@ export class MapPage {
  this.selectedItem = navParams.get('selectedItem');
  this.coordinates = this.selectedItem.coordinates;
  this.positionsString = this.coordinates.split(",0 ");
- console.log(this.positionsString);
+ //console.log(this.positionsString);
  this.positionsString.forEach(e => this.positions.push(new GoogleMapsLatLng(Number.parseFloat(e.split(",")[1]),Number.parseFloat(e.split(",")[0]))));
  this.positions = this.positions.slice(0,this.positions.length-2);
- console.log(this.positions);
- console.log(this.selectedItem);
+ //console.log(this.positions);
+ //console.log(this.selectedItem);
      platform.ready().then(() => {
             this.loadMap(this.selectedItem);
         });
