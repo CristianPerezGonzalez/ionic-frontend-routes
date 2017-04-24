@@ -15,6 +15,7 @@ import { LoadingController } from 'ionic-angular';
 })
 export class ListPage {
   rating:number = 1;
+  difficulty: number = 1;
   selectedItem: any;
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
@@ -70,7 +71,18 @@ this.loadingCtrl.create({
     ruta.name="Eliminado";
   }
 
-  stpSelect() {
+  ratingSelect() {
     console.log('selected: ' + this.rating);
+  this.rutaService.getByStars(this.rating)
+    .subscribe(data => {
+      this.routes = data.json();
+    }) ;
+  }
+  difficultySelect() {
+    console.log('selected: ' + this.difficulty);
+  this.rutaService.getByDifficulty(this.difficulty)
+    .subscribe(data => {
+      this.routes = data.json();
+    }) ;
   }
 }

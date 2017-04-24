@@ -10,8 +10,22 @@
 <ion-content>
 <ion-list>
   <ion-item>
-    <ion-label>Valoracion</ion-label>
-    <ion-select [(ngModel)]="rating" (ionChange)="stpSelect()">
+    <ion-label>Dificultad:</ion-label>
+    <ion-select [(ngModel)]="difficulty" (ionChange)="difficultySelect()">
+      <ion-option value="1">1</ion-option>
+      <ion-option value="2">2</ion-option>
+      <ion-option value="3">3</ion-option>
+      <ion-option  value="4">4</ion-option>
+      <ion-option value="5">5</ion-option>
+    </ion-select>
+  </ion-item>
+</ion-list>
+
+
+<ion-list>
+  <ion-item>
+    <ion-label>Valoracion:</ion-label>
+    <ion-select [(ngModel)]="rating" (ionChange)="ratingSelect()">
       <ion-option value="1">1</ion-option>
       <ion-option value="2">2</ion-option>
       <ion-option value="3">3</ion-option>

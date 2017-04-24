@@ -32,6 +32,21 @@ export class RoutesService {
           return this.http.get(this.routesRest + "routes", {headers: this.headers});
       }
 
+      getByDuration(duration: number) : Observable<Response> {  
+          return this.http.get(this.routesRest + "routebyduration?duration="+duration, {headers: this.headers});
+      }
+
+      getByStars(stars: number) : Observable<Response> {  
+          return this.http.get(this.routesRest + "routebystars?stars="+stars, {headers: this.headers});
+      }
+
+      getByDifficulty(difficulty: number) : Observable<Response> {  
+          return this.http.get(this.routesRest + "routebydifficulty?difficulty="+difficulty, {headers: this.headers});
+      }
+
+      getByDistance(distance: number) : Observable<Response> {  
+          return this.http.get(this.routesRest + "routebydifficulty?distance="+distance, {headers: this.headers});
+      }
 
   create(route: Route): Promise < Route >{
     return this.http
