@@ -38,6 +38,7 @@ getRouteDetail(id:number): void {
       this.selectedItem = data.json();
     }) ;
 
+    
   }
 
 /*

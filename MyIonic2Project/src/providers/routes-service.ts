@@ -27,6 +27,9 @@ export class RoutesService {
       console.log('Hello Routes Provider');
     }
 
+    getMarkersByRoute(route_id: number) : Observable<Response> {  
+          return this.http.get(this.routesRest + "markers?route_id="+route_id, {headers: this.headers});
+      }
     
     getAll() : Observable<Response> {  
           return this.http.get(this.routesRest + "routes", {headers: this.headers});
