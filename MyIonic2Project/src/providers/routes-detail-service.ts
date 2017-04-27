@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {  Headers,Http, Response, RequestOptions } from '@angular/http';
+import {  Headers,Http, Response/*, RequestOptions */} from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-import { Route } from '../app/route';
+import { Route } from '../entities/route';
 
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
@@ -22,7 +22,7 @@ export class RoutesDetailService {
     'Accept': 'application/json;charset=UTF-8',
     
   });
-  private options = new RequestOptions({ headers: this.headers });
+  //private options = new RequestOptions({ headers: this.headers });
 
     constructor(public http: Http) {
       console.log('Hello RoutesDetailService Provider');

@@ -6,18 +6,17 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ListPage } from '../pages/list/list';
-import { MapPage } from '../pages/map/map';
-import { MapcardPage } from '../pages/mapcard/mapcard';
+//import { MapPage } from '../pages/map/map';
+//import { MapcardPage } from '../pages/mapcard/mapcard';
 
-import { Ruta } from './ruta';
 
-import { CloudModule, CloudSettings } from '@ionic/cloud-angular';
+//import { CloudModule, CloudSettings } from '@ionic/cloud-angular';
 
-const cloudSettings: CloudSettings = {
+/*const cloudSettings: CloudSettings = {
   'core': {
     'app_id': '221ab9fa'
   }
-};
+};*/
 
 @Component({
   templateUrl: 'app.html'

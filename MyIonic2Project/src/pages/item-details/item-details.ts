@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { NavController, NavParams } from 'ionic-angular';
 import { Ruta } from '../../app/mock-backend/ruta';
-import { RouteDetail } from '../../app/route-detail';
+import { RouteDetail } from '../../entities/route-detail';
 import { MapPage } from '../map/map';
 import { RoutesDetailService } from '../../providers/routes-detail-service';
 
@@ -26,9 +26,11 @@ export class ItemDetailsPage {
    this.getRouteDetail(this.ruta.id);
   }
 
-toMap(selectedItem: RouteDetail){
+toMap(selectedItem: RouteDetail, ruta: Ruta){
   this.navCtrl.push(MapPage,{
-      selectedItem: selectedItem
+      selectedItem: selectedItem,
+      ruta: ruta
+
     });
 }
 

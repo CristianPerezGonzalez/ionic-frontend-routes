@@ -1,5 +1,5 @@
-import { NgModule, ErrorHandler } from '@angular/core';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { NgModule/*, ErrorHandler*/ } from '@angular/core';
+import { IonicApp, IonicModule/*, IonicErrorHandler*/ } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
@@ -7,13 +7,13 @@ import { ListPage } from '../pages/list/list';
 import { MapPage } from '../pages/map/map';
 import { MapcardPage } from '../pages/mapcard/mapcard';
 
-import {MockBackend} from "@angular/http/testing";
-import {BaseRequestOptions, Http} from "@angular/http";
+//import {MockBackend} from "@angular/http/testing";
+//import {BaseRequestOptions, Http} from "@angular/http";
 import { HttpModule }    from '@angular/http';
 
 // Imports for loading & configuring the in-memory web api
 //import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
-import { InMemoryDataService }  from './mock-backend/InMemoryDataService';
+//import { InMemoryDataService }  from './mock-backend/InMemoryDataService';
 
 import { RoutesService }          from './../providers/routes-service';
 import { RoutesDetailService }          from './../providers/routes-detail-service';

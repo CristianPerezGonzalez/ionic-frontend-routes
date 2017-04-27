@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { GoogleMap, GoogleMapsMarkerOptions, Geolocation, GoogleMapsMarker, GoogleMapsEvent, GoogleMapsLatLng, Toast, GoogleMapsPolylineOptions, GoogleMapsPolyline } from 'ionic-native';
-import { RouteDetail } from '../../app/route-detail';
-import { Marker } from '../../app/marker';
+import { RouteDetail } from '../../entities/route-detail';
+import { Marker } from '../../entities/marker';
 import { RoutesService } from '../../providers/routes-service';
+import { Route } from '../../entities/route';
+
 /*
   Generated class for the Map page.
 
@@ -19,23 +21,18 @@ export class MapPage {
   selectedItem: RouteDetail;
   coordinates: string;
   positionsString: string[];
-  positions: Array<GoogleMapsLatLng> = [
-
-  ];
-
-
-
+  positions: Array<GoogleMapsLatLng> = [];
   markers: Array<Marker> = Array();
-  poly_lines: Array<GoogleMapsPolyline> = Array();;
-
-
-
+  poly_lines: Array<GoogleMapsPolyline> = Array();
+  ruta: Route;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private rutaService: RoutesService,
     public platform: Platform) {
     this.selectedItem = navParams.get('selectedItem');
+    this.ruta = navParams.get("ruta");
+
     this.coordinates = this.selectedItem.coordinates;
     this.positionsString = this.coordinates.split(",0 ");
     //console.log(this.positionsString);
@@ -75,29 +72,37 @@ export class MapPage {
       }
     });
 
-
-
-
-
     this.map.on(GoogleMapsEvent.MAP_READY, ).subscribe(() => {
       console.log('Map is ready!');
-      this.map.addEventListener(GoogleMapsEvent.MAP_CLICK).subscribe((event) => {
+      /*this.map.addEventListener(GoogleMapsEvent.MAP_CLICK).subscribe((event) => {
         console.log(event.latLng);
 
-        Geolocation.watchPosition().subscribe((position) => {
-
-          this.setMarker(position.coords);
-
-
-        });
+        
       });
-
+      */
       this.getMarkers(this.selectedItem.id);
-      
+
       this.setPolyline();
     });
 
   }
+
+  setMyPosition() {
+
+
+    var subscription = Geolocation.watchPosition()
+      .filter((p) => p.coords !== undefined) //Filter Out Errors
+      .subscribe(position => {
+        console.log(position.coords.longitude + ' ' + position.coords.latitude);
+        this.setMarker(position.coords);
+        closed = true;
+      });
+    // To stop notifications
+    if(subscription.closed)
+      subscription.unsubscribe();
+
+  }
+
   ngOnInit(): void {
     //console.log("me destruyo");
     //this.setMarkers() 
@@ -118,7 +123,7 @@ export class MapPage {
   }
 
   setMarkers() {
-    
+
 
     // let location = new GoogleMapsLatLng(43.313154,-5.6983989);
     //let location = new GoogleMapsLatLng(this.selectedItem.latitude,this.selectedItem.longitude);
@@ -143,27 +148,6 @@ export class MapPage {
 
       });
 
-      /*
-          let markerInicial: GoogleMapsMarkerOptions = {
-                        position: this.positions[0],
-                        title: 'Inicio'
-                  };
-                  this.map.addMarker(markerInicial)
-                        .then((marker: GoogleMapsMarker) => {
-                          marker.showInfoWindow();
-                  });
-      
-                  let markerFinal: GoogleMapsMarkerOptions = {
-                        position: this.positions[this.positions.length-1],
-                        title: 'Meta'
-                  };
-                  this.map.addMarker(markerFinal)
-                        .then((marker: GoogleMapsMarker) => {
-                          marker.showInfoWindow();
-                  });
-      
-      */
-
 
     } else {
 
@@ -176,36 +160,44 @@ export class MapPage {
     }
   }
 
-setPolyline(){
-  this.positions.forEach((position, index, positions) => {
-        let polylineOptions: GoogleMapsPolylineOptions = {
-          points: [positions[index], positions[index - 1]],
-          color: '#E60026',
-          width: 2
-        };
+  setPolyline() {
+    this.positions.forEach((position, index, positions) => {
+      let polylineOptions: GoogleMapsPolylineOptions = {
+        points: [positions[index], positions[index - 1]],
+        color: '#E60026',
+        width: 2
+      };
 
-        this.map.addPolyline(polylineOptions).then((poly_line) => {
-          this.poly_lines.push(poly_line);
-        });
+      this.map.addPolyline(polylineOptions).then((poly_line) => {
+        this.poly_lines.push(poly_line);
       });
-}
+    });
+  }
 
   setMarker(coor: Coordinates) {
     let location = new GoogleMapsLatLng(coor.latitude, coor.longitude);
-    //this.map.getMyLocation().then((e)=>{location = e.latLng});
+    let title = 'Mi posicion';
 
-    //   let location = new GoogleMapsLatLng(43.313154,-5.6983989);
-    // location = new GoogleMapsLatLng(this.selectedItem.latitude,this.selectedItem.longitude);
-
-    //primero validamos que tengamos los datos de la localización
     if (location) {
 
       //De esta forma estamos colocando el marker en la posicion de nuestra ubicación, con el titulo ‘Mi posición’
       let markerOptions: GoogleMapsMarkerOptions = {
 
         position: location,
-        title: 'Mi posición'
+        title: title
       };
+
+      let marker = new Marker();
+      marker.id = null;
+      marker.title = title;
+      marker.latitude = location.lat;
+      marker.longitude = location.lng;
+      marker.route = this.ruta;
+      console.log(this.ruta);
+      this.rutaService.createMarker(marker).subscribe(data => {
+        console.log(data.json());
+      });
+;
 
       //Luego lo agregamos al mapa, y una vez agregado llamamos la función showInfoWindow() para mostrar el título señalado anteriormente.
 

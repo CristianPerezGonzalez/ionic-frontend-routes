@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Auth, User, UserDetails, IDetailedError } from '@ionic/cloud-angular';
 import { NavController, LoadingController } from 'ionic-angular';
-import { InAppBrowser } from 'ionic-native';
+//import { InAppBrowser } from 'ionic-native';
 
 @Component({
   selector: 'page-hello-ionic',
